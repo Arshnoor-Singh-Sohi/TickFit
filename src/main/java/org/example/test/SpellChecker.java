@@ -1,50 +1,51 @@
 package org.example.test;
 import java.util.*;
 
+import java.util.*;
+
 public class SpellChecker {
-    private Set<String> watchNames;
+    private Set<String> dictionary;
 
-    public SpellChecker(Set<String> watchNames) {
-        this.watchNames = watchNames;
+    public SpellChecker(Set<String> dictionary) {
+        this.dictionary = dictionary;
     }
 
-    public List<String> suggestCorrections(String input) {
-        List<String> suggestions = new ArrayList<>();
-        int minDistance = Integer.MAX_VALUE;
-
-        for (String name : watchNames) {
-            int distance = calculateEditDistance(input.toLowerCase(), name.toLowerCase());
-            if (distance < minDistance) {
-                suggestions.clear(); // Clear previous suggestions
-                suggestions.add(name);
-                minDistance = distance;
-            } else if (distance == minDistance) {
-                suggestions.add(name);
-            }
-        }
-
-        // Limit the number of suggestions
-        return suggestions.size() > 5 ? suggestions.subList(0, 5) : suggestions;
-    }
-
-    private int calculateEditDistance(String word1, String word2) {
-        int len1 = word1.length();
-        int len2 = word2.length();
-        int[][] dp = new int[len1 + 1][len2 + 1];
-
-        for (int i = 0; i <= len1; i++) {
-            for (int j = 0; j <= len2; j++) {
-                if (i == 0) {
-                    dp[i][j] = j; // If first string is empty
-                } else if (j == 0) {
-                    dp[i][j] = i; // If second string is empty
-                } else if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
-                    dp[i][j] = dp[i - 1][j - 1]; // Characters match
-                } else {
-                    dp[i][j] = 1 + Math.min(dp[i - 1][j], Math.min(dp[i][j - 1], dp[i - 1][j - 1])); // Insert, Remove, Replace
+    // Method to calculate the Levenshtein distance
+    public int getEditDistance(String s1, String s2) {
+        int[] costs = new int[s2.length() + 1];
+        for (int i = 0; i <= s1.length(); i++) {
+            int lastValue = i;
+            for (int j = 0; j <= s2.length(); j++) {
+                if (i == 0)
+                    costs[j] = j;
+                else {
+                    int newValue = costs[j];
+                    if (s1.charAt(i - 1) != s2.charAt(j - 1))
+                        newValue = Math.min(Math.min(newValue + 1, lastValue + 1), costs[j - 1] + 1);
+                    costs[j] = lastValue;
+                    lastValue = newValue;
                 }
             }
         }
-        return dp[len1][len2];
+        return costs[s2.length()];
+    }
+
+    // Method to suggest corrections for a given word
+    public List<String> suggestCorrections(String word) {
+        List<String> suggestions = new ArrayList<>();
+        Map<String, Integer> distanceMap = new HashMap<>();
+
+        for (String entry : dictionary) {
+            int distance = getEditDistance(word.toLowerCase(), entry.toLowerCase());
+            distanceMap.put(entry, distance);
+        }
+
+        // Sort by the smallest edit distance
+        distanceMap.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
+                .limit(5) // Limit to 5 closest matches
+                .forEach(entry -> suggestions.add(entry.getKey()));
+
+        return suggestions;
     }
 }

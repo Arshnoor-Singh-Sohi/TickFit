@@ -17,7 +17,7 @@ public class SmartwatchRecommendationSystem {
     private Workbook workbook;
     private VocabularyBuilder vocabularyBuilder;
     private SpellChecker spellChecker;
-    private WordCompletion wordCompletion;
+    private WordCompletionNew wordCompletion;
     private FrequencyCounter frequencyCounter;
     private Set<String> watchNames;
 
@@ -37,7 +37,6 @@ public class SmartwatchRecommendationSystem {
 
         this.vocabularyBuilder = new VocabularyBuilder(this.appleWorkbook, this.gshockWorkbook);
         this.spellChecker = new SpellChecker(vocabularyBuilder.getVocabulary());
-        this.wordCompletion = new WordCompletion(vocabularyBuilder.getVocabulary());
         this.frequencyCounter = new FrequencyCounter();
         this.watchNames = new HashSet<>();
         collectWatchNames();
@@ -72,10 +71,6 @@ public class SmartwatchRecommendationSystem {
 
     public List<String> suggestCorrections(String word) {
         return spellChecker.suggestCorrections(word);
-    }
-
-    public List<String> completeWord(String prefix) {
-        return wordCompletion.complete(prefix);
     }
 
     public void updateWordFrequency(String word) {
@@ -399,8 +394,6 @@ public class SmartwatchRecommendationSystem {
         System.out.println("+--------------------------+--------------------------------------------------+");
     }
 
-
-
     private boolean checkGShockFeatures(Sheet sheet, Set<String> selectedFeatures) {
         if (sheet == null || sheet.getPhysicalNumberOfRows() < 2) {
             return false; // Sheet is null or doesn't have enough rows
@@ -665,5 +658,3 @@ public class SmartwatchRecommendationSystem {
         }
     }
 }
-
-
