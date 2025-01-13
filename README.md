@@ -63,17 +63,6 @@ Contributions to improve the Smart Watch Recommendation System are welcome. Plea
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## Acknowledgments
 
 - Apache POI library for Excel file handling
-- Contributors who have participated in this project
-
-Citations:
-[1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/33541180/8f5a5717-927f-4a0d-b9aa-fb90148c5105/paste.txt
-[2] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/33541180/ea229ea2-3602-430e-8d16-1e5e9eb060f4/paste.txt
-[3] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/33541180/8abeaef8-0dd1-4d54-b4c9-8401240a874e/paste.txt
-[4] https://github.com/Arshnoor-Singh-Sohi/Smart-Watch
