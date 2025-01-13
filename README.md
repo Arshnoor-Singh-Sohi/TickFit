@@ -66,3 +66,10 @@ Contributions to improve the Smart Watch Recommendation System are welcome. Plea
 ## Acknowledgments
 
 - Apache POI library for Excel file handling
+
+## Screenshots
+![Recommendation System Based on Price](1-sw.jpg)
+
+
+![Recommendation System Based on Features Selected](2-sw.jpg)
+
