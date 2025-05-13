@@ -1063,6 +1063,7 @@ TickFit is licensed under the MIT License - see the [LICENSE](LICENSE) file for 
   <h3>Developed with ❤️ by Arshnoor Singh Sohi</h3>
   <p>For questions, feature requests, or bug reports, please open an issue on GitHub</p>
 </div>
+
 ## Screenshots
 ![Recommendation System Based on Price](1-sw.jpg)
 
